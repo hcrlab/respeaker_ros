@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
+import usb.core
+import usb.util
+
 import rclpy
 from rclpy.node import Node
-from rclpy.clock import Clock
 
-from std_msgs.msg import Header
+from std_msgs.msg import UInt16
+
+from .firmware.tuning import Tuning
 
 
 class RespeakerNode(Node):
@@ -12,20 +16,21 @@ class RespeakerNode(Node):
 
         self.declare_parameter('update_period_s', 0.1)
 
+        dev = usb.core.find(idVendor=0x2886, idProduct=0x0018)
+        self._tuning = Tuning(dev)
+
         update_period_s = self.get_parameter('update_period_s').value
         self.get_logger().info(
-            'Starting heartbeat with period {}'.format(update_period_s)
+            'Starting with update period {}'.format(update_period_s)
         )
-        self._pub = self.create_publisher(Header, 'heartbeat', 1)
-        self._clock = Clock()
+        self._pub = self.create_publisher(UInt16, 'respeaker/doa', 10)
         self._timer = self.create_timer(update_period_s, self.timer_callback)
 
     def timer_callback(self):
-        timestamp = self._clock.now()
-        msg = Header()
-        msg.stamp = timestamp.to_msg()
+        msg = UInt16()
+        msg.data = self._tuning.direction
         self._pub.publish(msg)
-        self.get_logger().debug('Publishing: "%s"' % msg.stamp)
+        self.get_logger().debug('Publishing DOA {} '.format(msg.data))
 
 
 def main(args=None):
