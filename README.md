@@ -1,5 +1,4 @@
-# Heartbeat Message Publisher
+# Respeaker DOA Publisher
 
-A ROS2 node which periodically publishes a heartbeat message.
+A ROS2 node which periodically publishes the DOA of a Respeaker microphone array.
 
-Can be used to detect if a remote ROS node is connected to the system.
