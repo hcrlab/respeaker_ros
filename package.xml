@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>respeaker</name>
+  <name>respeaker_ros</name>
   <version>1.0.0</version>
   <description>ROS interface for respeaker.</description>
-  <maintainer email="alex@machinekoder.com">Alex Roessler</maintainer>
-  <license>Apache License 2.0</license>
+  <maintainer email="nswalker@cs.washington.edu">Nick Walker</maintainer>
+  <license>MIT</license>
 
   <exec_depend>rclpy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
@@ -15,6 +15,14 @@
   <test_depend>ament_pyflakes</test_depend>
   <test_depend>rclpy</test_depend>
   <test_depend>std_msgs</test_depend>
+
+  <depend>angles</depend>
+  <depend>audio_common_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>portaudio19-dev</depend>
+  <depend>python3-pyaudio</depend>
+  <depend>python3-spidev</depend>
+  <depend>tf_transformations</depend>
 
   <export>
     <build_type>ament_python</build_type>
