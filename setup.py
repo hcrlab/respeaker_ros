@@ -28,7 +28,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'respeaker_node = respeaker.respeaker_node:main',
+            'respeaker_node = respeaker_ros.respeaker_node:main',
         ],
     },
 )
